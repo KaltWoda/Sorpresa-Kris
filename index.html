@@ -197,6 +197,58 @@
         0% { transform: translateY(0) rotate(0); }
         100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
     }
+        #game {
+        position: relative;
+        width: 300px;
+        height: 500px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /* Tulipán */
+    #tulip {
+        width: 180px;
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Pétalos cayendo */
+    .petalo {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: #ff4f9a;
+        border-radius: 60% 40% 70% 30%;
+        opacity: 1;
+        animation: caer 1.5s ease-out forwards;
+    }
+
+    @keyframes caer {
+        0% { transform: translateY(0) rotate(0); opacity: 1; }
+        100% { transform: translateY(300px) rotate(180deg); opacity: 0; }
+    }
+
+    /* Mensaje final */
+    #mensajeFinal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background: #ffdaf5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        font-size: 2.4rem;
+        font-weight: bold;
+        opacity: 0;
+        pointer-events: none;
+        transition: 1.2s ease-in-out;
+    }
 </style>
 </head>
 
@@ -398,6 +450,73 @@ function lanzarConfetti() {
         c.style.animation = "confetti 2.5s linear forwards";
         document.body.appendChild(c);
     }
+}
+</script>
+<div id="game">
+    <!-- Tulipán en SVG -->
+    <svg id="tulip" viewBox="0 0 200 300">
+        <!-- Tallo -->
+        <rect x="95" y="120" width="10" height="160" fill="#3cba54"/>
+
+        <!-- Hojas laterales -->
+        <path d="M100 200 C40 160, 40 260, 100 240" fill="#4cc96b"></path>
+        <path d="M100 200 C160 160, 160 260, 100 240" fill="#4cc96b"></path>
+
+        <!-- Pétalos (5) -->
+        <path class="pet" d="M100 120 C60 80, 40 20, 100 40" fill="#ff4f9a"/>
+        <path class="pet" d="M100 120 C80 60, 80 10, 100 40" fill="#ff2f80"/>
+        <path class="pet" d="M100 120 C120 60, 120 10, 100 40" fill="#ff2f80"/>
+        <path class="pet" d="M100 120 C140 80, 160 20, 100 40" fill="#ff4f9a"/>
+        <path class="pet" d="M100 120 C100 50, 60 0, 100 20" fill="#ff6fad"/>
+    </svg>
+</div>
+
+<!-- Mensaje final -->
+<div id="mensajeFinal">
+    🌷💗  
+    Eres una persona extraordinaria.  
+    Tu existencia es un regalo, tu sonrisa ilumina,  
+    y tu esfuerzo inspira orgullo profesional.  
+    Gracias por ser tú.  
+    ✨ ¡Feliz cumpleaños! ✨  
+</div>
+
+<script>
+let petalos = document.querySelectorAll(".pet");
+let petalosRestantes = petalos.length;
+
+document.getElementById("game").addEventListener("click", () => {
+    if (petalosRestantes <= 0) return;
+
+    // Eliminar el siguiente pétalo visualmente
+    let petalo = petalos[petalosRestantes - 1];
+    petalo.style.display = "none";
+
+    // Crear animación de pétalo cayendo
+    crearPetaloCayendo();
+
+    petalosRestantes--;
+
+    // Cuando se caen todos
+    if (petalosRestantes === 0) {
+        setTimeout(() => {
+            document.getElementById("mensajeFinal").style.opacity = "1";
+        }, 800);
+    }
+});
+
+function crearPetaloCayendo() {
+    const p = document.createElement("div");
+    p.classList.add("petalo");
+
+    // Posición inicial aleatoria alrededor del tulipán
+    p.style.left = (140 + Math.random() * 40) + "px";
+    p.style.top = "140px";
+
+    document.getElementById("game").appendChild(p);
+
+    // eliminar cuando termina la animación
+    setTimeout(() => p.remove(), 1500);
 }
 </script>
 
