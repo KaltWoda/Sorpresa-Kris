@@ -11,7 +11,9 @@
         overflow-x: hidden;
     }
 
-    /* PANTALLA 1 */
+    /* ============================
+       PANTALLA 1
+    ============================= */
     #inicio {
         position: fixed;
         top: 0; left: 0;
@@ -41,7 +43,9 @@
         box-shadow: 0 0 12px #ff5fa2;
     }
 
-    /* PANTALLAS 2 y 3 */
+    /* ============================
+       PANTALLAS 2 y 3
+    ============================= */
     #pregunta1, #pregunta2 {
         position: fixed;
         top: 0; left: 0;
@@ -57,7 +61,27 @@
         padding: 20px;
     }
 
-    /* Pantalla cargando */
+    /* Botones de estas pantallas */
+    .next-btn {
+        margin-top: 25px;
+        padding: 12px 28px;
+        background: #ff5fa2;
+        border: none;
+        border-radius: 18px;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .next-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px #ff5fa2;
+    }
+
+    /* ============================
+       PANTALLA CARGANDO
+    ============================= */
     #loading {
         position: fixed;
         top: 0; left: 0;
@@ -72,7 +96,21 @@
         font-size: 22px;
     }
 
-    /* Contenido final */
+    /* Animación de puntos "cargando" */
+    #loading .dots {
+        animation: blink 1s infinite;
+        font-size: 30px;
+        margin-top: 10px;
+    }
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0.2; }
+        100% { opacity: 1; }
+    }
+
+    /* ============================
+       CONTENIDO FINAL
+    ============================= */
     #content {
         display: none;
         text-align: center;
@@ -112,7 +150,9 @@
         box-shadow: 0 0 15px #ff8cc6;
     }
 
-    /* Carta */
+    /* ============================
+       CARTA
+    ============================= */
     #carta {
         display: none;
         margin-top: 40px;
@@ -126,7 +166,9 @@
         animation: fadeIn 2s ease forwards;
     }
 
-    /* Globos */
+    /* ============================
+       GLOBOS
+    ============================= */
     .globo {
         position: absolute;
         bottom: -150px;
@@ -141,17 +183,43 @@
         100% { transform: translateY(-120vh); opacity: 0; }
     }
 
-    @keyframes fadeIn {
-        to { opacity: 1; }
-    }
-
-    /* Confetti */
+    /* ============================
+       CONFETTI
+    ============================= */
     @keyframes confetti {
         0% { transform: translateY(0) rotate(0); }
         100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
     }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
+    /* ============================
+       HEART POP (Corazones)
+    ============================= */
+    .heart {
+        position: fixed;
+        bottom: -10px;
+        font-size: 30px;
+        color: #ff5fa2;
+        opacity: 0.9;
+        animation: heartRise 3s linear forwards;
+        pointer-events: none;
+    }
+
+    @keyframes heartRise {
+        0% {
+            transform: translateX(0) translateY(0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(var(--x)) translateY(-120vh) scale(2);
+            opacity: 0;
+        }
+    }
 </style>
-</head>
+
 
 <body>
 
@@ -161,14 +229,15 @@
     scrolling="no" frameborder="no" allow="autoplay"></iframe>
 
 <!-- PANTALLA 1 -->
-<div id="inicio">
-    <h2>Hola Kriss 💗 Tengo algo para ti…</h2>
-    <button onclick="reproducirMusica(); mostrarPregunta1();">Ver sorpresa ✨</button>
+<div id="pregunta1">
+    <div style="margin-bottom:20px;">¿Sabes qué día es hoy…? 💭</div>
+    <button class="btnPregunta" onclick="irAPregunta2()">¿Qué día es?</button>
 </div>
 
 <!-- PANTALLA 2 -->
-<div id="pregunta1">
-    <div>¿Sabes qué día es hoy…? 💭</div>
+<div id="pregunta2">
+    <div style="margin-bottom:20px;">Es el cumpleaños de una hermosa y linda niña 💗🎉</div>
+    <button class="btnPregunta" onclick="irACargando()">¿Preparada?</button>
 </div>
 
 <!-- PANTALLA 3 -->
@@ -204,12 +273,38 @@ function reproducirMusica() {
     const player = document.getElementById("player");
     player.src = "https://w.soundcloud.com/player/?url=https://soundcloud.com/highcloud-music/heat-waves&auto_play=true";
 }
+function irAPregunta2() {
+    document.getElementById("pregunta1").style.display = "none";
+    document.getElementById("pregunta2").style.display = "flex";
+}
+
+function irACargando() {
+    document.getElementById("pregunta2").style.display = "none";
+    document.getElementById("loading").style.display = "flex";
+
+    setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("content").style.display = "block";
+        lanzarGlobos();
+        document.getElementById("musica")?.play();
+    }, 3000);
+}
+function heartPop(x, y) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "❤️";
+    heart.style.left = x + "px";
+    heart.style.top = y + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 1200);
+}
 
 /* SECUENCIA DE PANTALLAS */
 function mostrarPregunta1() {
-    document.getElementById("inicio").style.display = "none";
-    document.getElementById("pregunta1").style.display = "flex";
-
     setTimeout(() => {
         document.getElementById("pregunta1").style.display = "none";
         document.getElementById("pregunta2").style.display = "flex";
