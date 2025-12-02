@@ -218,6 +218,65 @@
         </p>
     </div>
 </div>
+<!-- PANTALLA: ¿Sabes por qué? -->
+<div id="porQue1" style="display:none; text-align:center; padding:40px;">
+    <h2 style="color:#ff5fa2;">¿Sabes por qué? 💗</h2>
+    <p style="font-size:1.3rem; color:#444;">
+        Porque tu existencia es un regalo para el mundo,  
+        tu sonrisa ilumina días que ni sabías,  
+        y tu forma de ser hace que la vida sea más bonita. 💞
+    </p>
+
+    <button class="btn" onclick="mostrarFotos1()">Ver más 💗</button>
+</div>
+
+<!-- PANTALLA CON FOTOS 1 -->
+<div id="fotos1" style="display:none; text-align:center; padding:40px;">
+    <h2 style="color:#ff5fa2;">Mira esto… 💖</h2>
+    <p style="color:#444;">Estas fotos dicen más que mil palabras ✨</p>
+
+    <!-- AGREGA TUS IMÁGENES AQUI -->
+    <img src="foto1.jpg" style="width:230px; border-radius:20px; margin:10px;">
+    <img src="foto2.jpg" style="width:230px; border-radius:20px; margin:10px;">
+    <img src="foto3.jpg" style="width:230px; border-radius:20px; margin:10px;">
+
+    <button class="btn" onclick="preguntaEspecial()">Continuar ➜</button>
+</div>
+
+<!-- PANTALLA: ¿Eres especial? -->
+<div id="eresEspecial" style="display:none; text-align:center; padding:40px;">
+    <h2 style="color:#ff5fa2;">¿Eres especial? 💗</h2>
+    <p style="color:#444;">Respóndeme sincero 👀</p>
+
+    <button class="btn" onclick="finalDirecto()">Por supuesto 💗</button>
+    <button class="btn" onclick="respuestaNo()">No 😔</button>
+</div>
+
+<!-- PANTALLA: respuesta si elige "NO" -->
+<div id="porQueNo" style="display:none; text-align:center; padding:40px;">
+    <h2 style="color:#ff5fa2;">¿Y por qué no lo serías? 😄</h2>
+    <p style="color:#444;">Claramente sí lo eres</p>
+
+    <button class="btn" onclick="finalDirecto()">Continuar 💗</button>
+</div>
+
+<!-- PANTALLA FINAL -->
+<div id="finalMensaje" style="display:none; text-align:center; padding:40px;">
+    <h2 style="color:#ff5fa2;">Eres especial por esto… 💞</h2>
+
+    <p style="font-size:1.3rem; color:#444;">
+        Por cómo miras.  
+        Por cómo ríes.  
+        Por cómo haces sentir.  
+        Por cómo eres sin intentar.  
+        Porque tienes más luz que muchas estrellas juntas. 💗
+    </p>
+
+    <!-- FOTOS FINALES -->
+    <img src="foto4.jpg" style="width:230px; border-radius:20px; margin:10px;">
+    <img src="foto5.jpg" style="width:230px; border-radius:20px; margin:10px;">
+</div>
+
 
 <script>
 /* 🎶 MUSICA */
@@ -261,7 +320,39 @@ function lanzarGlobos() {
 /* 💌 CARTA */
 function mostrarCarta() {
     document.getElementById("carta").style.display = "block";
+
+    // Cambia el botón después de abrir
+    const btn = document.querySelector(".btn");
+    btn.innerText = "¿Sabes por qué? 💗";
+    btn.onclick = () => mostrarPorQue1();
 }
+
+function mostrarPorQue1() {
+    document.getElementById("carta").style.display = "none";
+    document.getElementById("porQue1").style.display = "block";
+}
+
+function mostrarFotos1() {
+    document.getElementById("porQue1").style.display = "none";
+    document.getElementById("fotos1").style.display = "block";
+}
+
+function preguntaEspecial() {
+    document.getElementById("fotos1").style.display = "none";
+    document.getElementById("eresEspecial").style.display = "block";
+}
+
+function respuestaNo() {
+    document.getElementById("eresEspecial").style.display = "none";
+    document.getElementById("porQueNo").style.display = "block";
+}
+
+function finalDirecto() {
+    document.getElementById("eresEspecial").style.display = "none";
+    document.getElementById("porQueNo").style.display = "none";
+    document.getElementById("finalMensaje").style.display = "block";
+}
+
 
 /* 🎉 CONFETTI */
 function lanzarConfetti() {
