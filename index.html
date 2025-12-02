@@ -90,7 +90,7 @@
         font-size: 22px;
     }
 
-    /* 🎀 CONTENIDO FINAL */
+    /* 🎀 CONTENIDO FINAL (CARTA + BOTONES) */
     #content {
         display: none;
         text-align: center;
@@ -144,6 +144,37 @@
         animation: fadeIn 2s ease forwards;
     }
 
+    /* 📌 PANTALLAS NUEVAS (fullscreen) */
+    #porQue1,
+    #fotos1,
+    #eresEspecial,
+    #porQueNo,
+    #finalMensaje {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #fff5fb;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 40px 20px;
+        overflow-y: auto;
+    }
+
+    /* imágenes de pantallas nuevas */
+    #fotos1 img,
+    #finalMensaje img {
+        width: 230px;
+        border-radius: 20px;
+        margin: 10px;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
     /* 🎈 GLOBOS */
     .globo {
         position: absolute;
@@ -157,10 +188,6 @@
     @keyframes subir {
         0% { transform: translateY(0); opacity: 1; }
         100% { transform: translateY(-120vh); opacity: 0; }
-    }
-
-    @keyframes fadeIn {
-        to { opacity: 1; }
     }
 
     /* 🎉 CONFETTI */
@@ -202,7 +229,10 @@
     <p style="margin-top:15px;">💗💗💗</p>
 </div>
 
-<!-- 🎀 CONTENIDO FINAL -->
+<!------------------------------------------------------------>
+<!--                  🎀 CONTENIDO FINAL                    -->
+<!------------------------------------------------------------>
+
 <div id="content">
     <h1>Feliz Cumple, Kriss 💗</h1>
     <p>Hice esta pequeña sorpresa para ti porque eres especial.</p>
@@ -218,8 +248,12 @@
         </p>
     </div>
 </div>
-<!-- PANTALLA: ¿Sabes por qué? -->
-<div id="porQue1" style="display:none; text-align:center; padding:40px;">
+
+<!------------------------------------------------------------>
+<!--                 SIGUIENTE RUTA                         -->
+<!------------------------------------------------------------>
+
+<div id="porQue1">
     <h2 style="color:#ff5fa2;">¿Sabes por qué? 💗</h2>
     <p style="font-size:1.3rem; color:#444;">
         Porque tu existencia es un regalo para el mundo,  
@@ -230,21 +264,19 @@
     <button class="btn" onclick="mostrarFotos1()">Ver más 💗</button>
 </div>
 
-<!-- PANTALLA CON FOTOS 1 -->
-<div id="fotos1" style="display:none; text-align:center; padding:40px;">
+<div id="fotos1">
     <h2 style="color:#ff5fa2;">Mira esto… 💖</h2>
     <p style="color:#444;">Estas fotos dicen más que mil palabras ✨</p>
 
     <!-- AGREGA TUS IMÁGENES AQUI -->
-    <img src="foto1.jpg" style="width:230px; border-radius:20px; margin:10px;">
-    <img src="foto2.jpg" style="width:230px; border-radius:20px; margin:10px;">
-    <img src="foto3.jpg" style="width:230px; border-radius:20px; margin:10px;">
+    <img src="foto1.jpg">
+    <img src="foto2.jpg">
+    <img src="foto3.jpg">
 
     <button class="btn" onclick="preguntaEspecial()">Continuar ➜</button>
 </div>
 
-<!-- PANTALLA: ¿Eres especial? -->
-<div id="eresEspecial" style="display:none; text-align:center; padding:40px;">
+<div id="eresEspecial">
     <h2 style="color:#ff5fa2;">¿Eres especial? 💗</h2>
     <p style="color:#444;">Respóndeme sincero 👀</p>
 
@@ -252,16 +284,14 @@
     <button class="btn" onclick="respuestaNo()">No 😔</button>
 </div>
 
-<!-- PANTALLA: respuesta si elige "NO" -->
-<div id="porQueNo" style="display:none; text-align:center; padding:40px;">
+<div id="porQueNo">
     <h2 style="color:#ff5fa2;">¿Y por qué no lo serías? 😄</h2>
     <p style="color:#444;">Claramente sí lo eres</p>
 
     <button class="btn" onclick="finalDirecto()">Continuar 💗</button>
 </div>
 
-<!-- PANTALLA FINAL -->
-<div id="finalMensaje" style="display:none; text-align:center; padding:40px;">
+<div id="finalMensaje">
     <h2 style="color:#ff5fa2;">Eres especial por esto… 💞</h2>
 
     <p style="font-size:1.3rem; color:#444;">
@@ -273,8 +303,8 @@
     </p>
 
     <!-- FOTOS FINALES -->
-    <img src="foto4.jpg" style="width:230px; border-radius:20px; margin:10px;">
-    <img src="foto5.jpg" style="width:230px; border-radius:20px; margin:10px;">
+    <img src="foto4.jpg">
+    <img src="foto5.jpg">
 </div>
 
 
@@ -321,38 +351,36 @@ function lanzarGlobos() {
 function mostrarCarta() {
     document.getElementById("carta").style.display = "block";
 
-    // Cambia el botón después de abrir
     const btn = document.querySelector(".btn");
     btn.innerText = "¿Sabes por qué? 💗";
     btn.onclick = () => mostrarPorQue1();
 }
 
 function mostrarPorQue1() {
-    document.getElementById("carta").style.display = "none";
-    document.getElementById("porQue1").style.display = "block";
+    document.getElementById("content").style.display = "none";
+    document.getElementById("porQue1").style.display = "flex";
 }
 
 function mostrarFotos1() {
     document.getElementById("porQue1").style.display = "none";
-    document.getElementById("fotos1").style.display = "block";
+    document.getElementById("fotos1").style.display = "flex";
 }
 
 function preguntaEspecial() {
     document.getElementById("fotos1").style.display = "none";
-    document.getElementById("eresEspecial").style.display = "block";
+    document.getElementById("eresEspecial").style.display = "flex";
 }
 
 function respuestaNo() {
     document.getElementById("eresEspecial").style.display = "none";
-    document.getElementById("porQueNo").style.display = "block";
+    document.getElementById("porQueNo").style.display = "flex";
 }
 
 function finalDirecto() {
     document.getElementById("eresEspecial").style.display = "none";
     document.getElementById("porQueNo").style.display = "none";
-    document.getElementById("finalMensaje").style.display = "block";
+    document.getElementById("finalMensaje").style.display = "flex";
 }
-
 
 /* 🎉 CONFETTI */
 function lanzarConfetti() {
