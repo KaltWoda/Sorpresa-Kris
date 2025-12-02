@@ -11,7 +11,53 @@
         overflow-x: hidden;
     }
 
-    /* Pantalla de carga */
+    /* PANTALLA 1 */
+    #inicio {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #inicio button {
+        margin-top: 20px;
+        padding: 15px 35px;
+        border-radius: 20px;
+        border: none;
+        background: #ff5fa2;
+        font-size: 1.3rem;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    #inicio button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 12px #ff5fa2;
+    }
+
+    /* PANTALLA 2 */
+    #pregunta1, #pregunta2 {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        color: #ffb6d9;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        font-size: 2rem;
+        padding: 20px;
+    }
+
+    /* Pantalla cargando */
     #loading {
         position: fixed;
         top: 0; left: 0;
@@ -19,10 +65,10 @@
         height: 100%;
         background: #000;
         color: #fff;
-        display: flex;
+        display: none;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
         font-size: 22px;
     }
 
@@ -66,7 +112,7 @@
         box-shadow: 0 0 15px #ff8cc6;
     }
 
-    /* Carta final */
+    /* Carta */
     #carta {
         display: none;
         margin-top: 40px;
@@ -78,10 +124,6 @@
         border-radius: 20px;
         box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
         animation: fadeIn 2s ease forwards;
-    }
-
-    @keyframes fadeIn {
-        to { opacity: 1; }
     }
 
     /* Globos */
@@ -98,10 +140,30 @@
         0% { transform: translateY(0); opacity: 1; }
         100% { transform: translateY(-120vh); opacity: 0; }
     }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
 </style>
 </head>
 
 <body>
+
+<!-- PANTALLA 1 -->
+<div id="inicio">
+    <h2>Hola Kriss 💗 Tengo algo para ti…</h2>
+    <button onclick="mostrarPregunta1()">Ver sorpresa ✨</button>
+</div>
+
+<!-- PANTALLA 2 -->
+<div id="pregunta1">
+    <div>¿Sabes qué día es hoy…? 💭</div>
+</div>
+
+<!-- PANTALLA 3 -->
+<div id="pregunta2">
+    <div>Es el cumpleaños de una hermosa y linda niña 💗🎉</div>
+</div>
 
 <!-- Pantalla de carga -->
 <div id="loading">
@@ -109,7 +171,7 @@
     <p style="margin-top:15px;">💗💗💗</p>
 </div>
 
-<!-- Contenido -->
+<!-- Contenido principal -->
 <div id="content">
     <h1>Feliz Cumple, Kriss 💗</h1>
     <p>Hice esta pequeña sorpresa para ti porque eres especial.</p>
@@ -126,14 +188,27 @@
 </div>
 
 <script>
-    // Simula carga de sorpresa
-    setTimeout(() => {
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("content").style.display = "block";
-        lanzarGlobos();
-    }, 3000);
+    function mostrarPregunta1() {
+        document.getElementById("inicio").style.display = "none";
+        document.getElementById("pregunta1").style.display = "flex";
 
-    // Globos aleatorios
+        setTimeout(() => {
+            document.getElementById("pregunta1").style.display = "none";
+            document.getElementById("pregunta2").style.display = "flex";
+        }, 2500);
+
+        setTimeout(() => {
+            document.getElementById("pregunta2").style.display = "none";
+            document.getElementById("loading").style.display = "flex";
+
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("content").style.display = "block";
+                lanzarGlobos();
+            }, 3000);
+        }, 5500);
+    }
+
     function lanzarGlobos() {
         for (let i = 0; i < 15; i++) {
             let globo = document.createElement("div");
@@ -145,12 +220,10 @@
         }
     }
 
-    // Mostrar carta
     function mostrarCarta() {
         document.getElementById("carta").style.display = "block";
     }
 
-    // Confetti básico
     function lanzarConfetti() {
         for (let i = 0; i < 100; i++) {
             let c = document.createElement("div");
