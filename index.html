@@ -41,7 +41,7 @@
         box-shadow: 0 0 12px #ff5fa2;
     }
 
-    /* PANTALLA 2 */
+    /* PANTALLAS 2 y 3 */
     #pregunta1, #pregunta2 {
         position: fixed;
         top: 0; left: 0;
@@ -72,7 +72,7 @@
         font-size: 22px;
     }
 
-    /* Contenido principal oculto al inicio */
+    /* Contenido final */
     #content {
         display: none;
         text-align: center;
@@ -144,15 +144,26 @@
     @keyframes fadeIn {
         to { opacity: 1; }
     }
+
+    /* Confetti */
+    @keyframes confetti {
+        0% { transform: translateY(0) rotate(0); }
+        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
 </style>
 </head>
 
 <body>
 
+<!-- REPRODUCTOR OCULTO -->
+<iframe id="player"
+    style="visibility:hidden; position:absolute; width:1px; height:1px;"
+    scrolling="no" frameborder="no" allow="autoplay"></iframe>
+
 <!-- PANTALLA 1 -->
 <div id="inicio">
     <h2>Hola Kriss 💗 Tengo algo para ti…</h2>
-    <button onclick="mostrarPregunta1()">Ver sorpresa ✨</button>
+    <button onclick="reproducirMusica(); mostrarPregunta1();">Ver sorpresa ✨</button>
 </div>
 
 <!-- PANTALLA 2 -->
@@ -170,11 +181,6 @@
     <span style="font-size:27px;">Cargando sorpresa para Kriss...</span>
     <p style="margin-top:15px;">💗💗💗</p>
 </div>
-<div style="width:0; height:0; overflow:hidden;">
-    <iframe width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/highcloud-music/heat-waves&auto_play=true">
-    </iframe>
-</div>
 
 <!-- Contenido principal -->
 <div id="content">
@@ -190,69 +196,71 @@
             Ojalá este día sea tan bonito como lo que haces sentir. 💗  
         </p>
     </div>
-    
 </div>
 
 <script>
-    function mostrarPregunta1() {
-        document.getElementById("inicio").style.display = "none";
-        document.getElementById("pregunta1").style.display = "flex";
-
-        setTimeout(() => {
-            document.getElementById("pregunta1").style.display = "none";
-            document.getElementById("pregunta2").style.display = "flex";
-        }, 2500);
-
-        setTimeout(() => {
-            document.getElementById("pregunta2").style.display = "none";
-            document.getElementById("loading").style.display = "flex";
-
-            setTimeout(() => {
-                document.getElementById("loading").style.display = "none";
-                document.getElementById("content").style.display = "block";
-                lanzarGlobos();
-            }, 3000);
-        }, 5500);
-    }
-
-    function lanzarGlobos() {
-        for (let i = 0; i < 15; i++) {
-            let globo = document.createElement("div");
-            globo.className = "globo";
-            globo.style.left = Math.random() * 100 + "vw";
-            globo.style.background = `hsl(${Math.random()*360}, 80%, 75%)`;
-            globo.style.animationDuration = (4 + Math.random()*4) + "s";
-            document.body.appendChild(globo);
-        }
-    }
-
-    function mostrarCarta() {
-        document.getElementById("carta").style.display = "block";
-    }
-
-    function lanzarConfetti() {
-        for (let i = 0; i < 100; i++) {
-            let c = document.createElement("div");
-            c.style.position = "fixed";
-            c.style.width = "8px";
-            c.style.height = "8px";
-            c.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
-            c.style.top = "-10px";
-            c.style.left = Math.random()*100 + "vw";
-            c.style.borderRadius = "2px";
-            c.style.opacity = "0.9";
-            c.style.animation = "confetti 2.5s linear forwards";
-            document.body.appendChild(c);
-        }
-    }
-</script>
-
-<style>
-@keyframes confetti {
-    0% { transform: translateY(0) rotate(0); }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+/* INICIA LA MÚSICA */
+function reproducirMusica() {
+    const player = document.getElementById("player");
+    player.src = "https://w.soundcloud.com/player/?url=https://soundcloud.com/highcloud-music/heat-waves&auto_play=true";
 }
-</style>
+
+/* SECUENCIA DE PANTALLAS */
+function mostrarPregunta1() {
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("pregunta1").style.display = "flex";
+
+    setTimeout(() => {
+        document.getElementById("pregunta1").style.display = "none";
+        document.getElementById("pregunta2").style.display = "flex";
+    }, 2500);
+
+    setTimeout(() => {
+        document.getElementById("pregunta2").style.display = "none";
+        document.getElementById("loading").style.display = "flex";
+
+        setTimeout(() => {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("content").style.display = "block";
+            lanzarGlobos();
+        }, 3000);
+    }, 5500);
+}
+
+/* GLOBOS */
+function lanzarGlobos() {
+    for (let i = 0; i < 15; i++) {
+        let globo = document.createElement("div");
+        globo.className = "globo";
+        globo.style.left = Math.random() * 100 + "vw";
+        globo.style.background = `hsl(${Math.random()*360}, 80%, 75%)`;
+        globo.style.animationDuration = (4 + Math.random()*4) + "s";
+        document.body.appendChild(globo);
+    }
+}
+
+/* CARTA */
+function mostrarCarta() {
+    document.getElementById("carta").style.display = "block";
+}
+
+/* CONFETTI */
+function lanzarConfetti() {
+    for (let i = 0; i < 100; i++) {
+        let c = document.createElement("div");
+        c.style.position = "fixed";
+        c.style.width = "8px";
+        c.style.height = "8px";
+        c.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
+        c.style.top = "-10px";
+        c.style.left = Math.random()*100 + "vw";
+        c.style.borderRadius = "2px";
+        c.style.opacity = "0.9";
+        c.style.animation = "confetti 2.5s linear forwards";
+        document.body.appendChild(c);
+    }
+}
+</script>
 
 </body>
 </html>
