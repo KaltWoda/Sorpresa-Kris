@@ -229,23 +229,34 @@
 
     /* Mensaje final */
     #mensajeFinal {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        background: #ffdaf5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
-        font-size: 2.4rem;
-        font-weight: bold;
-        opacity: 0;
-        pointer-events: none;
-        transition: 1.2s ease-in-out;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: #000000ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 1.2s ease-in-out;
+}
+
+.contenido-final {
+    color: #ff7ac4;
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    max-width: 600px;
+}
+
+.img-final {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
 </style>
 </head>
 
@@ -464,14 +475,24 @@ function lanzarConfetti() {
 
 
 <!-- Mensaje final -->
+<<!-- Mensaje final + Imagen para Kriss -->
 <div id="mensajeFinal">
-    🌷💗  
-    Eres una persona extraordinaria.  
-    Tu existencia es un regalo, tu sonrisa ilumina,  
-    y tu esfuerzo inspira orgullo profesional.  
-    Gracias por ser tú.  
-    ✨ ¡Feliz cumpleaños! ✨  
+    <div class="contenido-final">
+        <img src="tulipan_final.png" class="img-final">
+
+        <p>
+            🌷💗  
+            Para Kriss…  
+            Eres una persona extraordinaria.  
+            Tu existencia es un regalo,  
+            tu sonrisa ilumina,  
+            y tu esfuerzo inspira orgullo profesional.  
+            Gracias por ser tú.  
+            ✨ ¡Feliz cumpleaños! ✨  
+        </p>
+    </div>
 </div>
+
 
 <script>
 let petalos = document.querySelectorAll(".pet");
@@ -491,10 +512,11 @@ document.getElementById("game").addEventListener("click", () => {
 
     // Cuando se caen todos
     if (petalosRestantes === 0) {
-        setTimeout(() => {
-            document.getElementById("mensajeFinal").style.opacity = "1";
-        }, 800);
-    }
+    setTimeout(() => {
+        document.getElementById("mensajeFinal").style.opacity = "1";
+    }, 800);
+}
+
 });
 
 function crearPetaloCayendo() {
