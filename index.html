@@ -308,12 +308,8 @@ p {
 <body>
 
 <!-- 🚀 REPRODUCTOR OCULTO -->
-<iframe id="player"
-    style="opacity:0; position:absolute; width:0; height:0; pointer-events:none;"
-    scrolling="no" frameborder="0"
-    allow="autoplay; encrypted-media"
-    allow="autoplay; fullscreen; picture-in-picture">
-</iframe>
+<audio id="audio" src="cancion.mp3" preload="auto"></audio>
+
 <!-- 🎀 PANTALLA NEGRA INICIO -->
 <div id="inicio">
     <h1>Para Kriss 💗</h1>
@@ -423,8 +419,8 @@ function empezar() {
     document.getElementById("inicio").style.display = "none";
     document.getElementById("pregunta1").style.display = "flex";
 
-    const iframe = document.getElementById("player");
-    iframe.src = "https://w.soundcloud.com/player/?url=https://soundcloud.com/highcloud-music/heat-waves&auto_play=false&show_artwork=false";
+    const audio = document.getElementById("audio");
+    audio.play().catch(e => console.log("Reproducción bloqueada: ", e));
 
     // Forzar play tras interacción
     iframe.contentWindow.postMessage('{"method":"play"}', '*');
