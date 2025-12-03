@@ -5,274 +5,236 @@
 <title>Para Kriss 💗</title>
 
 <style>
-    body {
-        margin: 0;
-        background: #fff5fb;
-        font-family: 'Poppins', sans-serif;
-        overflow-x: hidden;
-        overflow: hidden 
-    }
-
-    /* 🎀 PANTALLA NEGRA DE INICIO */
-    #inicio {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: #000;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    #inicio button {
-        margin-top: 20px;
-        padding: 15px 35px;
-        border-radius: 20px;
-        border: none;
-        background: #ff5fa2;
-        font-size: 1.3rem;
-        color: white;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    #inicio button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 12px #ff5fa2;
-    }
-
-    /* 🎀 PANTALLAS DE PREGUNTAS */
-    #pregunta1, #pregunta2 {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: #000;
-        color: #ffb6d9;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        flex-direction: column;
-        font-size: 2rem;
-        padding: 20px;
-    }
-
-    /* botones de preguntas */
-    .btnPregunta {
-        margin-top: 25px;
-        padding: 12px 30px;
-        font-size: 1.3rem;
-        background: #ff5fa2;
-        border: none;
-        border-radius: 20px;
-        color: white;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .btnPregunta:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 12px #ff5fa2;
-    }
-
-    /* 🎀 LOADING */
-    #loading {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        background: #000;
-        color: #fff;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: 22px;
-    }
-
-    /* 🎀 CONTENIDO FINAL (CARTA + BOTONES) */
-    #content {
-        display: none;
-        text-align: center;
-        padding: 60px 20px;
-    }
-
-    h1 {
-        font-size: 3rem;
-        color: #ff5fa2;
-        animation: fadeIn 2s ease forwards;
-        opacity: 0;
-    }
-
-    p {
-        font-size: 1.3rem;
-        color: #444;
-        margin-top: -10px;
-        opacity: 0;
-        animation: fadeIn 2s ease forwards 1s;
-    }
-
-    .btn {
-        margin-top: 40px;
-        padding: 15px 30px;
-        background: #ff5fa2;
-        border: none;
-        border-radius: 25px;
-        color: white;
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: 0.3s;
-        opacity: 0;
-        animation: fadeIn 2s ease forwards 2s;
-    }
-    .btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 15px #ff8cc6;
-    }
-
-    /* 🎀 CARTA */
-    #carta {
-        display: none;
-        overflow: hidden;
-        margin-top: 40px;
-        padding: 20px;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
-        animation: fadeIn 2s ease forwards;
-    }
-
-    /* 📌 PANTALLAS NUEVAS (fullscreen) */
-    #porQue1,
-    #fotos1,
-    #eresEspecial,
-    #porQueNo,
-    #finalMensaje {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: #fff5fb;
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 40px 20px;
-        overflow-y: auto;
-    }
-
-    /* imágenes de pantallas nuevas */
-    #fotos1 img,
-    #finalMensaje img {
-        width: 230px;
-        border-radius: 20px;
-        margin: 10px;
-    }
-
-    @keyframes fadeIn {
-        to { opacity: 1; }
-    }
-
-    /* 🎈 GLOBOS */
-    .globo {
-        position: absolute;
-        bottom: -150px;
-        width: 50px;
-        height: 70px;
-        background: pink;
-        border-radius: 50%;
-        animation: subir 6s linear infinite;
-    }
-    @keyframes subir {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(-120vh); opacity: 0; }
-    }
-
-    /* 🎉 CONFETTI */
-    @keyframes confetti {
-        0% { transform: translateY(0) rotate(0); }
-        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
-    #game {
-        width: 100%;
-        height: 100vh;
-        display: none; /* ⛔ Oculto al inicio */
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
-
-    #tulip {
-        width: 230px;
-    }
-
-
-
-    /* Pétalos cayendo */
-    .petalo {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        background: #ff4f9a;
-        border-radius: 60% 40% 70% 30%;
-        opacity: 1;
-        animation: caer 1.5s ease-out forwards;
-    }
-
-    @keyframes caer {
-        0% { transform: translateY(0) rotate(0); opacity: 1; }
-        100% { transform: translateY(300px) rotate(180deg); opacity: 0; }
-    }
-
-    /* Mensaje final */
-    #mensajeFinal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background: #000000ee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: 1.2s ease-in-out;
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.contenido-final {
-    color: #ff7ac4;
-    font-family: "Poppins", sans-serif;
-    font-size: 2rem;
-    max-width: 600px;
+body {
+    margin: 0;
+    background: #fff5fb;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    overflow: hidden;
 }
 
-.img-final {
-    width: 300px;
-    margin-bottom: 20px;
-}
-#btnTulipan {
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 18px;
-    background-color: #ff4fa8;
-    border: none;
+/* 🎀 PANTALLA NEGRA DE INICIO */
+#inicio {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
     color: white;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#inicio button {
+    margin-top: 20px;
+    padding: 15px 35px;
+    border-radius: 20px;
+    border: none;
+    background: #ff5fa2;
+    font-size: 1.3rem;
+    color: white;
     cursor: pointer;
     transition: 0.3s;
 }
-
-#btnTulipan:hover {
-    background-color: #ff2f90;
-    transform: scale(1.05);
+#inicio button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px #ff5fa2;
 }
+
+/* 🎀 PANTALLAS DE PREGUNTAS */
+#pregunta1, #pregunta2 {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    color: #ffb6d9;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    font-size: 2rem;
+    padding: 20px;
+}
+
+/* botones de preguntas */
+.btnPregunta {
+    margin-top: 25px;
+    padding: 12px 30px;
+    font-size: 1.3rem;
+    background: #ff5fa2;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btnPregunta:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px #ff5fa2;
+}
+
+/* 🎀 LOADING */
+#loading {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: #fff;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+/* 🎀 CONTENIDO FINAL (CARTA + BOTONES) */
+#content {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #ff5fa2;
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
+}
+
+p {
+    font-size: 1.3rem;
+    color: #444;
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 1s;
+}
+
+.btn {
+    margin-top: 40px;
+    padding: 15px 30px;
+    background: #ff5fa2;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 2s;
+}
+.btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff8cc6;
+}
+
+/* 🎀 CARTA */
+#carta {
+    display: none;
+    overflow: hidden;
+    margin-top: 40px;
+    padding: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+    animation: fadeIn 2s ease forwards;
+}
+
+/* 📌 PANTALLAS NUEVAS (fullscreen) */
+#porQue1,
+#fotos1,
+#eresEspecial,
+#porQueNo,
+#finalMensaje {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #fff5fb;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    overflow-y: auto;
+}
+
+/* imágenes de pantallas nuevas */
+#fotos1 img,
+#finalMensaje img {
+    width: 230px;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* 🎈 GLOBOS */
+.globo {
+    position: absolute;
+    bottom: -150px;
+    width: 50px;
+    height: 70px;
+    background: pink;
+    border-radius: 50%;
+    animation: subir 6s linear infinite;
+}
+@keyframes subir {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* 🎉 CONFETTI */
+@keyframes confetti {
+    0% { transform: translateY(0) rotate(0); }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* TULIPÁN GAME */
+#game {
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#tulip {
+    width: 230px;
+}
+
+/* Pétalos cayendo */
+.petalo {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #ff4f9a;
+    border-radius: 60% 40% 70% 30%;
+    opacity: 1;
+    animation: caer 1.5s ease-out forwards;
+}
+
+@keyframes caer {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(300px) rotate(180deg); opacity: 0; }
+}
+
+/* Mensaje final */
 #mensajeFinal {
     position: absolute;
     top: 0;
@@ -292,9 +254,9 @@
 
 .contenido-final {
     display: flex;
-    flex-direction: column;   /* ESTA LÍNEA ORDENA TODO VERTICAL */
+    flex-direction: column;
     align-items: center;
-    gap: 25px;                /* Espacio entre foto, texto y botón */
+    gap: 25px;
     color: #df1282;
     font-family: "Poppins", sans-serif;
     font-size: 1rem;
@@ -304,6 +266,40 @@
 .img-final {
     width: 300px;
     margin-bottom: 10px;
+}
+
+#btnTulipan {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 18px;
+    background-color: #ff4fa8;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btnTulipan:hover {
+    background-color: #ff2f90;
+    transform: scale(1.05);
+}
+
+/* -----------------------------------------------------------
+   RESPONSIVE
+----------------------------------------------------------- */
+
+/* Móviles */
+@media (max-width: 450px) {
+    h1 { font-size: 2.2rem; }
+    p { font-size: 1.1rem; }
+    #tulip { width: 180px; }
+    #fotos1 img, #finalMensaje img { width: 180px; }
+}
+
+/* Laptops bajas */
+@media (max-height: 700px) {
+    body { padding-top: 40px; }
 }
 
 </style>
