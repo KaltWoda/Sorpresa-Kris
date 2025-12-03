@@ -423,8 +423,11 @@ function empezar() {
     document.getElementById("inicio").style.display = "none";
     document.getElementById("pregunta1").style.display = "flex";
 
-    document.getElementById("player").src =
-        "https://w.soundcloud.com/player/?url=https://soundcloud.com/highcloud-music/heat-waves&auto_play=true&show_artwork=false";
+    const iframe = document.getElementById("player");
+    iframe.src = "https://w.soundcloud.com/player/?url=https://soundcloud.com/highcloud-music/heat-waves&auto_play=false&show_artwork=false";
+
+    // Forzar play tras interacción
+    iframe.contentWindow.postMessage('{"method":"play"}', '*');
 }
 
 /* NAVEGACIÓN */
